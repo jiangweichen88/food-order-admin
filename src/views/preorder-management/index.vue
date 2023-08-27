@@ -348,8 +348,8 @@ export default {
   },
   computed: {
     community_id() {
-      // return this.$store.getters.community_id;
-      return 1;
+      return this.$store.getters.community_id;
+      // return 1;
     },
   },
   watch: {
