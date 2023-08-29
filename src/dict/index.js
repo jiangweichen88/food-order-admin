@@ -7,11 +7,11 @@ const typeOptions=new DataDictionary([
 ])
 const statusOptions=new DataDictionary( [{
   name: "上架",
-  key: "1",
+  key: 1,
 },
 {
   name: "下架",
-  key: "0",
+  key: 0,
 }])
 const orderStatusOptions=new DataDictionary( [{
   name: "已预定",
@@ -21,4 +21,12 @@ const orderStatusOptions=new DataDictionary( [{
   name: "已取消",
   key: "0",
 }])
-export { typeOptions,statusOptions,orderStatusOptions}
+const auditStatusOptions=new DataDictionary( [{
+  name: "已审核",
+  key: 1,
+},
+{
+  name: "未审核",
+  key: 0,
+}])
+export { typeOptions,statusOptions,orderStatusOptions,auditStatusOptions}

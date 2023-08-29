@@ -28,22 +28,33 @@
 
         <lang-select class="right-menu-item hover-effect" />
       </template>
-
-      <el-dropdown
-        class="avatar-container right-menu-item hover-effect"
+      <el-popover
+        style="line-height: 0"
+        placement="bottom"
+        width="250"
         trigger="click"
       >
-        <div class="avatar-wrapper">
+        <div class="dis-f marb10">
+          <span class="label">账户名</span>
+          <span class="ellipsis">{{ userinfo.nickname }}</span>
+        </div>
+        <div class="dis-f">
+          <span class="label">账号</span>
+          <span class="ellipsis"> {{ userinfo.login_email }}</span>
+        </div>
+        <el-divider></el-divider>
+        <div class="tx-c">
+          <el-button @click.native="logout" type="text">{{
+            $t("navbar.logOut")
+          }}</el-button>
+        </div>
+
+        <div class="avatar-wrapper" slot="reference">
           <!-- <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar" /> -->
           <el-avatar icon="el-icon-user-solid"></el-avatar>
           <i class="el-icon-caret-bottom" />
         </div>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item divided @click.native="logout">
-            <span style="display: block">{{ $t("navbar.logOut") }}</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+      </el-popover>
     </div>
   </div>
 </template>
@@ -71,7 +82,7 @@ export default {
     Communitys,
   },
   computed: {
-    ...mapGetters(["sidebar", "avatar", "device"]),
+    ...mapGetters(["sidebar", "avatar", "device", "userinfo"]),
   },
   methods: {
     toggleSideBar() {
@@ -79,7 +90,8 @@ export default {
     },
     async logout() {
       await this.$store.dispatch("user/logout");
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`);
+      this.$router.push(`/login`);
+      // this.$router.push(`/login?redirect=${this.$route.fullPath}`);
     },
   },
 };
@@ -167,5 +179,11 @@ export default {
       }
     }
   }
+}
+.label {
+  color: #999;
+  margin-right: 10px;
+  width: 48px;
+  flex-shrink: 0;
 }
 </style>

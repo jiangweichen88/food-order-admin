@@ -38,7 +38,7 @@
           </el-select>
         </el-form-item>
         <el-form-item  label="状态">
-          <el-select clearable v-model="listQuery.status" placeholder="请选择">
+          <el-select clearable v-model="listQuery.available" placeholder="请选择">
             <el-option
               v-for="item in statusOptions._data_"
               :key="item.key"
@@ -289,7 +289,7 @@ export default {
         limit: 20,
         name: "",
         type: "",
-        status: "",
+        available: "",
       },
       importanceOptions: [1, 2, 3],
       sortOptions: [
@@ -355,9 +355,12 @@ export default {
       community_id:this.community_id,
       ...this.listQuery
       }
+      if(ps.available===''){
+        ps.available=-1
+      } 
       getCommunityList(ps)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.list = (res.data||[]).map(v=>({
             ...v,
             ...v.meal_info,
@@ -387,7 +390,6 @@ export default {
         available:status
       }
       updateMeal(ps).then(res=>{
-        console.log(res)
         this.$message({
         message: "操作成功",
         type: "success",
@@ -427,7 +429,7 @@ export default {
       });
     },
     createData() {
-      console.log(this.temp)
+      // console.log(this.temp)
       this.$refs["dataForm"].validate((valid) => {
         if (valid) {
           let ps={

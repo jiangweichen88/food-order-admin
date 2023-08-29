@@ -210,7 +210,6 @@ import {
 } from "@/api/preorder-management";
 
 import waves from "@/directive/waves"; // waves directive
-import { parseTime } from "@/utils";
 import Pagination from "@/components/Pagination"; // secondary package based on el-pagination
 import tableMixins from "@/mixins/table";
 import { get } from "lodash-es";
@@ -296,7 +295,7 @@ export default {
         addr: "门牌号",
         phone: "手机号",
       },
-      list: null,
+      list: [],
       total: 0,
       listLoading: true,
       typeOptions: typeOptions,

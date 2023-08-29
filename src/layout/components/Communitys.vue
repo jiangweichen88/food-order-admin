@@ -11,6 +11,7 @@
 </template>
 <script>
 import { getCommunitys } from "@/api/community";
+import { mapGetters } from "vuex";
 export default {
   components: {},
   data() {
@@ -19,7 +20,9 @@ export default {
       options: [],
     };
   },
-  computed: {},
+  computed: {
+    ...mapGetters(["userinfo"]),
+  },
   watch: {
     value(val) {
       this.$store.commit("user/SET_COMMUNITY_ID", val);
@@ -28,12 +31,21 @@ export default {
   methods: {},
   created() {
     getCommunitys().then((res) => {
-      this.options = res.data.map((v) => {
-        return {
-          label: v.name,
-          value: v.id,
-        };
-      });
+      this.options = res.data
+        .map((v) => {
+          return {
+            label: v.name,
+            value: v.id,
+          };
+        })
+        .filter((v) => {
+          return (
+            this.userinfo.community_ids &&
+            this.userinfo.community_ids.length > 0 &&
+            this.userinfo.community_ids.indexOf(v.value) > -1
+          );
+        });
+      this.$store.commit("user/SET_COMMUNITYS", this.options);
       if (this.options.length > 0) {
         this.value = this.options[0].value;
       }

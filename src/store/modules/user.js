@@ -8,7 +8,9 @@ const state = {
   avatar: '',
   introduction: '',
   roles: [],
+  userinfo:{},
   community_id: '',
+  communitys:[]
 }
 
 const mutations = {
@@ -27,8 +29,14 @@ const mutations = {
   SET_ROLES: (state, roles) => {
     state.roles = roles
   },
+  SET_USERINFO: (state, userinfo) => {
+    state.userinfo = userinfo
+  },
   SET_COMMUNITY_ID: (state, community_id) => {
     state.community_id = community_id
+  },
+  SET_COMMUNITYS: (state, communitys) => {
+    state.communitys = communitys
   }
 }
 
@@ -38,7 +46,6 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ email: username.trim(), password: password }).then(response => {  
-        console.log(response,'response');
         const { data } = response
         commit('SET_TOKEN', data.token)
         setToken(data.token)
@@ -54,22 +61,27 @@ const actions = {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
         const { data } = response
-
+      
         if (!data) {
           reject('Verification failed, please Login again.')
         }
 
-        const { roles, name, avatar, introduction } = data
-
+        // const { roles, name, avatar, introduction } = data
+        
+        const { is_admin } = data
         // roles must be a non-empty array
-        if (!roles || roles.length <= 0) {
-          reject('getInfo: roles must be a non-null array!')
+        // if (!roles || roles.length <= 0) {
+        //   reject('getInfo: roles must be a non-null array!')
+        // }
+        let  roles=['editor']
+        if(is_admin){
+          roles=['admin']
         }
-
         commit('SET_ROLES', roles)
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
-        commit('SET_INTRODUCTION', introduction)
+        commit('SET_USERINFO', data)
+        // commit('SET_NAME', name)
+        // commit('SET_AVATAR', avatar)
+        // commit('SET_INTRODUCTION', introduction)
         resolve(data)
       }).catch(error => {
         reject(error)
@@ -114,8 +126,7 @@ const actions = {
     commit('SET_TOKEN', token)
     setToken(token)
 
-    // const { roles } = await dispatch('getInfo')
-
+    const { roles } = await dispatch('getInfo')
     resetRouter()
 
     // generate accessible routes map based on roles

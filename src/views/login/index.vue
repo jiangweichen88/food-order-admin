@@ -82,6 +82,9 @@
           <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
         </div>
       </div> -->
+      <p class="tips">
+        <a @click="goTo('/register')" type="primary">还没有帐号？立即注册</a>
+      </p>
     </el-form>
 
     <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog">
@@ -119,8 +122,8 @@ export default {
     };
     return {
       loginForm: {
-        username: "605407716@qq.com",
-        password: "123456",
+        username: "",
+        password: "",
       },
       loginRules: {
         // username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -162,6 +165,9 @@ export default {
     // window.removeEventListener('storage', this.afterQRScan)
   },
   methods: {
+    goTo(path) {
+      this.$router.push({ path: path });
+    },
     checkCapslock(e) {
       const { key } = e;
       this.capsTooltip = key && key.length === 1 && key >= "A" && key <= "Z";
