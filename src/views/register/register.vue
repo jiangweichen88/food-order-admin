@@ -1,79 +1,88 @@
 <template>
-  <div class="register-container">
-    <article class="header">
-      <header>
-        <el-avatar icon="el-icon-user-solid" shape="circle" />
-        <span class="login">
-          <em class="bold">已有账号？</em>
-          <a href="/login">
-            <el-button type="primary" size="mini">登录</el-button>
-          </a>
-        </span>
-      </header>
-    </article>
-    <section>
-      <!-- :rules="rules" -->
-
-      <el-form
-        ref="ruleForm"
-        :model="ruleForm"
-        label-width="100px"
-        autocomplete="off"
-        size="medium"
+  <div class="register-container dis-f">
+    <div class="flex1 dis-f a-center j-center" style="flex-direction: column">
+      <h1 style="color: #fff">预约订餐管理系统</h1>
+    </div>
+    <div class="right-box dis-f" style="flex-direction: column">
+      <!-- <article class="header dis-f a-center j-end">
+        <header>
+          <span class="login">
+            <em class="bold">已有账号？</em>
+            <a href="/login">
+              <el-button type="primary" size="mini">登录</el-button>
+            </a>
+          </span>
+        </header>
+      </article> -->
+      <section
+        class="flex1 dis-f a-center j-center"
+        style="flex-direction: column"
       >
-        <div style="padding-top: 10px">
-          <el-form-item label="邮箱" prop="email">
-            <el-col :span="10">
+        <!-- :rules="rules" -->
+        <p style="font-size: 18px; font-weight: 500">请填写注册信息</p>
+        <el-form
+          :rules="rules"
+          class="register-form"
+          ref="ruleForm"
+          :model="ruleForm"
+          label-width="100px"
+          autocomplete="off"
+          size="medium"
+        >
+          <div style="padding-top: 10px">
+            <el-form-item label="邮箱" prop="email">
               <el-input
                 v-model="ruleForm.email"
                 placeholder="输入邮箱并点击发送验证码"
               />
-            </el-col>
-            <el-button
-              :loading="codeLoading"
-              :disabled="isDisable"
-              size="small"
-              round
-              @click="sendMsg"
-              >发送验证码</el-button
-            >
-
-            <span class="status">{{ statusMsg }}</span>
-          </el-form-item>
-          <el-form-item label="邮箱验证码" prop="captcha">
-            <el-col :span="10">
+            </el-form-item>
+            <el-form-item label="邮箱验证码" prop="captcha">
               <el-input
                 v-model="ruleForm.captcha"
                 maxlength="6"
                 placeholder="请登录邮箱接收验证码"
-              />
-            </el-col>
-          </el-form-item>
-          <el-form-item label="用户名" prop="nick_name">
-            <el-col :span="10">
+              >
+                <el-button
+                  slot="append"
+                  :loading="codeLoading"
+                  :disabled="isDisable"
+                  size="small"
+                  @click="sendMsg"
+                  >发送验证码</el-button
+                >
+              </el-input>
+              <span class="status">{{ statusMsg }}</span>
+            </el-form-item>
+            <el-form-item label="用户名" prop="nick_name">
               <el-input v-model="ruleForm.nick_name" />
-            </el-col>
-          </el-form-item>
-          <el-form-item label="密码" prop="passwd" show-password>
-            <el-col :span="10">
+            </el-form-item>
+            <el-form-item label="密码" prop="passwd" show-password>
               <el-input v-model="ruleForm.passwd" type="password" />
-            </el-col>
-          </el-form-item>
-          <el-form-item label="确认密码" prop="cpwd" show-password>
-            <el-col :span="10">
+            </el-form-item>
+            <el-form-item label="确认密码" prop="cpwd" show-password>
               <el-input v-model="ruleForm.cpwd" type="password" />
-            </el-col>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" style="width: 40%" @click="register"
-              >注册</el-button
-            >
-          </el-form-item>
-        </div>
-      </el-form>
-    </section>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" style="width: 100%" @click="register"
+                >注册</el-button
+              >
+            </el-form-item>
+            <div class="tx-r">
+              <a href="/login">
+                <el-button
+                  style="font-size: 14px; font-weight: 500"
+                  type="text"
+                  size="mini"
+                  >去登录</el-button
+                >
+              </a>
+            </div>
+          </div>
+        </el-form>
+      </section>
 
-    <div class="error">{{ error }}</div>
+      <div class="error">{{ error }}</div>
+    </div>
   </div>
 </template>
 
@@ -238,48 +247,48 @@ $bg: #283443;
 $light_gray: #fff;
 $cursor: #fff;
 
-@supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
-  .register-container .el-input input {
-    color: $cursor;
-  }
-}
+// @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
+//   .register-container .el-input input {
+//     color: $cursor;
+//   }
+// }
 
 /* reset element-ui css */
 .register-container {
-  .el-input {
-    display: inline-block;
-    height: 47px;
-    width: 95%;
+  // .el-input {
+  //   display: inline-block;
+  //   height: 47px;
+  //   width: 95%;
 
-    input {
-      background: rgba(0, 0, 0, 0.1);
-      border-radius: 5px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      -webkit-appearance: none;
-      padding: 12px 5px 12px 15px;
-      color: $light_gray;
-      height: 47px;
-      caret-color: $cursor;
+  //   input {
+  //     background: rgba(0, 0, 0, 0.1);
+  //     border-radius: 5px;
+  //     border: 1px solid rgba(255, 255, 255, 0.1);
+  //     -webkit-appearance: none;
+  //     padding: 12px 5px 12px 15px;
+  //     color: $light_gray;
+  //     height: 47px;
+  //     caret-color: $cursor;
 
-      &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $bg inset !important;
-        -webkit-text-fill-color: $cursor !important;
-      }
-    }
-  }
+  //     &:-webkit-autofill {
+  //       box-shadow: 0 0 0px 1000px $bg inset !important;
+  //       -webkit-text-fill-color: $cursor !important;
+  //     }
+  //   }
+  // }
 
-  .el-form-item {
-    label {
-      font-style: normal;
-      font-size: 12px;
-      color: $light_gray;
-    }
-  }
+  // .el-form-item {
+  //   label {
+  //     font-style: normal;
+  //     font-size: 12px;
+  //     color: $light_gray;
+  //   }
+  // }
 }
 </style>
 
 <style lang="scss" scoped>
-$bg: #2d3a4b;
+$bg: #081c42;
 $dark_gray: #889aa4;
 $light_gray: #eee;
 
@@ -290,14 +299,11 @@ $light_gray: #eee;
   overflow: hidden;
 
   .header {
-    border-bottom: 2px solid rgb(235, 232, 232);
-    min-width: 980px;
+    border-bottom: 1px solid rgb(235, 232, 232);
     color: #666;
 
     header {
-      margin: 0 auto;
-      padding: 10px 0;
-      width: 980px;
+      padding: 10px;
 
       .login {
         float: right;
@@ -305,7 +311,7 @@ $light_gray: #eee;
 
       .bold {
         font-style: normal;
-        color: $light_gray;
+        color: #222;
       }
     }
   }
@@ -346,7 +352,7 @@ $light_gray: #eee;
 
 <style scoped>
 /* 修改验证器样式 */
-/deep/ .el-form-item.is-error .el-input__inner {
+/* /deep/ .el-form-item.is-error .el-input__inner {
   border-color: #889aa4;
 }
 /deep/ .el-form-item.is-error .el-input__validateIcon {
@@ -354,5 +360,12 @@ $light_gray: #eee;
 }
 /deep/ .el-form-item__error {
   color: #e6a23c;
+} */
+.right-box {
+  width: 600px;
+  background: #fff;
+}
+.register-form {
+  width: 380px;
 }
 </style>
